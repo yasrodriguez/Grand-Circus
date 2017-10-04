@@ -3,9 +3,10 @@ package preWorkMathChallenge;
 import java.util.Scanner;
 
 /**
- * The program reads two integers from the user. It then validates that both
- * integers have the same number of digits and if so, it checks if the sum of
- * the digits in the same position on each integer add up to the same total.
+ * This program reads two integers from the user. It validates that both
+ * integers have the same number of digits and have at least two digits. If the
+ * two integers are valid, it returns whether the sum of the digits in the same
+ * position on each integer add up to the same total.
  * 
  * @author Yasmin
  *
@@ -14,8 +15,8 @@ public class MathChallenge {
 
 	/**
 	 * Prompts the user for two numbers. Validates that input is numeric, then calls
-	 * methods to validate that length of both numbers is equal and to check if the
-	 * sum of the digits is equal.
+	 * methods to validate that length of both numbers and to check if the sum of
+	 * the digits is equal.
 	 * 
 	 * @param args
 	 */
@@ -23,39 +24,40 @@ public class MathChallenge {
 		Scanner input = new Scanner(System.in);
 		int number1 = 0;
 		int number2 = 0;
-		final String errorNotANumber = "You must enter a number. Please try again.";
+		final String NOT_A_NUMBER_ERROR = "You must enter a number. Please try again.";
 		MathChallenge m = new MathChallenge();
-		boolean valid = false;
+		boolean validIntegers = false;
 		boolean sumOfDigitsIsEqual = false;
 
 		System.out.println("Please enter the first number: ");
 		if (input.hasNextInt()) {
 			number1 = input.nextInt();
 		} else {
-			System.out.println(errorNotANumber);
+			System.out.println(NOT_A_NUMBER_ERROR);
 			return;
 		}
 
-		System.out.println("Please enter the second number\n(must be the same length as the first): ");
+		System.out.println("Please enter the second number: ");
 		if (input.hasNextInt()) {
 			number2 = input.nextInt();
 		} else {
-			System.out.println(errorNotANumber);
+			System.out.println(NOT_A_NUMBER_ERROR);
 			return;
 		}
 
-		valid = m.validateLength(number1, number2);
+		validIntegers = m.validateLength(number1, number2);
 
-		if (valid) {
+		if (validIntegers) {
 			sumOfDigitsIsEqual = m.sumOfDigitsIsEqual(number1, number2);
 			System.out.println("Sum of Digits is Equal: " + sumOfDigitsIsEqual);
 		} else {
-			System.out.println("Both numbers must be the same length. Please try again.");
+			System.out.println(
+					"Both numbers must have at least two digits and be the same length. Please try again.");
 		}
 	}
 
 	/**
-	 * Validates that both inputs are the same length.
+	 * Validates that both inputs are the same length and at least two digits long.
 	 * 
 	 * @param input1
 	 *            the first number
@@ -66,7 +68,7 @@ public class MathChallenge {
 	public boolean validateLength(int number1, int number2) {
 		int lengthNumber1 = Integer.toString(number1).length();
 		int lengthNumber2 = Integer.toString(number2).length();
-		return lengthNumber1 == lengthNumber2;
+		return (lengthNumber1 == lengthNumber2) && (lengthNumber1 > 1) & (lengthNumber2 > 1);
 	}
 
 	/**
