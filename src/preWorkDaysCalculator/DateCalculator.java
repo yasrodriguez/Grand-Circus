@@ -3,6 +3,7 @@ package preWorkDaysCalculator;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -19,28 +20,45 @@ public class DateCalculator {
 	private int diffDays = 0;
 
 	/**
-	 * Prompts the user for two dates, converts them to a proper date and calls the
-	 * calculate difference method. An invalid date format will result in a
+	 * Calls methods to prompt for the dates and calculate the difference between
+	 * the dates.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		LocalDate date1 = null;
-		LocalDate date2 = null;
-		final String prompt = "Enter a date. Use the format MM/DD/YYYY: ";
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+
 		DateCalculator calc = new DateCalculator();
 		String result = "";
+		LocalDate date1 = null;
+		LocalDate date2 = null;
 
-		System.out.println(prompt);
-		date1 = LocalDate.parse(input.next(), formatter);
-
-		System.out.println(prompt);
-		date2 = LocalDate.parse(input.next(), formatter);
+		date1 = getDate();
+		date2 = getDate();
 
 		result = calc.calculateDifference(date1, date2);
 		System.out.println(result);
+	}
+
+	/**
+	 * Prompt the user for a date. Keep prompting until they enter a valid date.
+	 * 
+	 * @return the date input by the user
+	 */
+	public static LocalDate getDate() {
+		Scanner input = new Scanner(System.in);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+		LocalDate date = null;
+
+		do {
+			System.out.println("Enter a date. Use the format MM/DD/YYYY: ");
+			try {
+				date = LocalDate.parse(input.next(), formatter);
+			} catch (DateTimeParseException e) {
+				System.out.println("Invalid date. Please try again.");
+			}
+		} while (date == null);
+
+		return date;
 	}
 
 	/**
