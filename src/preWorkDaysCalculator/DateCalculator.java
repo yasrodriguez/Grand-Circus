@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * This program prompts the user for two dates and calculates the time elapsed
- * between the two dates in Years, Months and Days.
+ * between them in Years, Months and Days.
  * 
  * @author Yasmin
  *
