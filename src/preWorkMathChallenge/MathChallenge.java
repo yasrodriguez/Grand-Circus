@@ -34,7 +34,7 @@ public class MathChallenge {
 			System.out.println("Sum of digits in each position is equal: " + sumOfDigitsIsEqual);
 		} else {
 			System.out.println(
-					"Both numbers must have at least two digits and be the same length. Please try again.");
+					"Both numbers must have at least two digits and be the same length. " + "Please try again.");
 		}
 	}
 
@@ -54,8 +54,7 @@ public class MathChallenge {
 
 			if (numericInput = input.hasNextInt()) {
 				number = input.nextInt();
-			}
-			else {
+			} else {
 				input.next();
 			}
 		} while (!numericInput);
